@@ -1,0 +1,24 @@
+import seaborn as sns
+import squarify
+import matplotlib.pyplot as plt
+titanic = sns.load_dataset('titanic')
+titanic.head()
+#This gives us the sum of total survivors grouped according to the class.
+n = titanic.groupby('class')[['survived']].sum()
+print(n)
+#This gives us the labels in the form of a list.
+a = titanic.groupby('class')[['survived']].sum().index.get_level_values(0).tolist()
+print(a)
+#To get the values corresponding to these labels, use :
+d = titanic.groupby('class')[['survived']].sum().reset_index().survived.values.tolist()
+print(d)
+
+titanic = sns.load_dataset('titanic')
+
+a = titanic.groupby('class')[['survived']].sum().index.get_level_values(0).tolist()
+
+d = titanic.groupby('class')[['survived']].sum().reset_index().survived.values.tolist()
+
+squarify.plot(sizes=d, label=a, alpha=.8)
+plt.axis('off')
+plt.show()
